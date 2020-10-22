@@ -1,0 +1,380 @@
+
+一、类
+1、类的修饰符
+abstract    // 抽象类
+final       // 类不可继承，默认属性
+enum        // 枚举类
+open        // 类可继承，类默认是final的
+annotation  // 注解类
+
+2、访问权限修饰符
+private    // 仅在同一个文件中可见
+protected  // 同一个文件中或子类可见
+public     // 所有调用的地方都可见
+internal   // 同一个模块中可见
+
+3、构造函数
+Koltin 中的类可以有一个 主构造器，以及一个或多个次构造器，主构造器是类头部的一部分，位于类名称之后:
+class Person (name: String) { //主构造函数
+   var username=name
+    init {
+        //主构造器中不能包含任何代码，初始化代码可以放在初始化代码段中，初始化代码段使用 init 关键字作为前缀。
+         println("name is $name")
+    }
+}
+
+次构造函数
+类也可以有二级构造函数，需要加前缀 constructor:
+class Person {
+    constructor(parent: Person) {
+        parent.children.add(this)
+    }
+}
+如果类有主构造函数，每个次构造函数都要，或直接或间接通过另一个次构造函数代理主构造函数。在同一个类中代理另一个构造函数使用 this 关键字：
+class Person(val name: String) { //主构造函数
+    init {
+        println("初始化网站名: ${name}")
+    }
+    constructor (name: String, age:Int) : this(name) { //次构造函数，需要代理主构造函数
+         println("age =$age")
+    }
+}
+
+4、Any
+Kotlin 中所有类都继承该 Any 类，它是所有类的超类，
+Any默认提供了三个函数：
+    equals()
+    hashCode()
+    toString()
+注意：Any 不是 java.lang.Object。
+
+5、继承
+如果一个类要被继承，可以使用 open 关键字进行修饰。
+open class Base(p: Int)// 定义基类
+class Child(p: Int) : Base(p)
+
+子类有主构造函数
+如果子类有主构造函数， 则基类必须在主构造函数中立即初始化。
+open class Person(var name : String, var age : Int){// 基类
+
+}
+
+class Student(name : String, age : Int, var no : String, var score : Int) : Person(name, age) {
+
+}
+
+子类没有主构造函数
+如果子类没有主构造函数，则必须在每一个二级构造函数中用 super 关键字初始化基类，或者在代理另一个构造函数。
+初始化基类时，可以调用基类的不同构造方法。
+class Student : Person {
+
+    constructor(ctx: Context) : super(ctx) {
+    }
+
+    constructor(ctx: Context, attrs: AttributeSet) : super(ctx,attrs) {
+    }
+}
+
+
+
+
+1、单例
+定义：object xx{}
+
+object SingleCls {
+    const val TAG = "StaticCls"
+
+    @JvmField
+    var staticField = true
+
+    @JvmStatic
+    fun staticMethod1(str: String?) {
+
+    }
+}
+
+2、model类
+定义 data class xx()
+必须提供构造函数 自动生成setXX getXX
+
+data class DataCls(var str: String?, var time: Long?) {
+    var other:String?=null
+    fun getStr2(): String {
+        str = "abc"
+        return str + "aa"
+    }
+}
+
+3、普通类
+//public  class ClsTest {
+open class ClsTest {
+    // private int i = 1;
+    var i = 1
+
+    //  private String name;
+    var name: String? = null
+        get() {  //处理getXX方法
+            return field?.toUpperCase()
+        }
+        set(value) { //处理setXX方法
+            if (TextUtils.isEmpty(value)) {
+                field = "defValue"
+            } else {
+                field = value
+            }
+        }
+
+    //构造函数
+    constructor()
+    constructor(str: String?) {
+
+    }
+
+    //普通方法
+    fun method(): String {
+        return "abc"
+    }
+
+    //静态变量  静态方法
+    companion object {
+        var staticField = "STATIC_FIELD"
+        fun staticMethod(str: String?): String? {
+            return null
+        }
+    }
+}
+
+子类继承
+open class ClsTest
+class SubClsTest(str: String?) : ClsTest(str) {
+}
+
+4、内部类
+内部类使用 inner 关键字来表示。
+内部类会带有一个对外部类的对象的引用，所以内部类可以访问外部类成员属性和成员函数。
+class InnerClsTest {
+    var name: String? = null
+
+    inner class Inner {
+        fun method() {
+            //this@InnerClsTest 引用外部类对象
+            var username = this@InnerClsTest.name
+        }
+    }
+
+    fun test2(callback: MyInterface) {
+        callback.update("name", 1)
+    }
+
+    fun test() {
+        //构建内部类对象
+        var innerObj = InnerClsTest().Inner()
+        innerObj.method()
+
+        //匿名内部类
+        test2(object : MyInterface {
+            override fun update(name: String, age: Int) {
+
+            }
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

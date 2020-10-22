@@ -1,0 +1,82 @@
+
+1、泛型类
+//kotlin
+class ResultCallBack <T>{
+}
+
+//java
+public class ResultCallBack<T>{
+}
+
+2、泛型方法
+//kotlin
+fun <T>onSuccess(stateCode: Int, body:T){
+ }
+
+//java
+public <T> onSuccess(int stateCode, T body){
+}
+
+3、泛型接口
+//kotlin
+interface ResultCallBack <T>{
+}
+
+// java
+public interface ResultCallBack<T>{
+}
+
+4、泛型上限
+上界通配符通常我们使用<? extends T> 来表示。即泛型参数类型必须是T或者T的子类，用来确定类型的上限。
+// java
+   public void systemOut(List<? extends T> list){
+
+    }
+// Kotlin  [ out T  等价于 ? extends T ]
+    fun systemOut(list : List<out T> ){
+
+    }
+
+   fun <T:View> method(param:T){
+
+   }
+
+5、泛型下限
+下界通配符通常我们使用<? super T> 来表示。即可以表示所有T的父类（包括T），用来确定类型的上限。
+// java
+  public void systemIn(List<? super T> list){
+
+  }
+
+// kotlin [  in T  等价于  ? super T ]  还有 [ *  等价于 ? ]
+    fun systemIn(list: MutableList<in T>) {
+
+    }
+
+6、泛型擦除
+    // kotlin [ Any 对应 Java Object 任意类型]
+    fun buildRequest(param:Any){
+        // 第一种具体类型
+        if (param is Int){
+
+        }
+
+        // 第二种Array 使用 * 通配符
+        if (param is Array<*>){
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

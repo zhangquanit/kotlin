@@ -1,0 +1,25 @@
+
+接口调用
+
+    textView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    });
+
+   ----------------------
+   //正常写法
+    textView.setOnClickListener(object :View.OnClickListener{
+        override fun onClick(v: View?) {
+
+        }
+    })
+    //只有一个回调方法的lambda写法
+    textView.setOnClickListener ({
+        it.setBackgroundColor(Color.parseColor("#ffffff"))
+    })
+    //只有一个回调方法的lambda写法 可以直接省略圆括号
+    textView.setOnClickListener {
+
+    }

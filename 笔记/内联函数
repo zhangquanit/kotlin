@@ -1,0 +1,125 @@
+
+https://blog.csdn.net/u013064109/article/details/78786646
+
+apply/run.....let/also..with
+
+1、内联扩展函数之let
+let扩展函数的实际上是一个作用域函数，当你需要去定义一个变量在一个特定的作用域范围内，let函数的是一个不错的选择；let函数另一个作用就是可以避免写一些判断null的操作。
+object.let{
+   it.todo()//在函数体内使用it替代object对象去访问其公有的属性和方法
+   ...
+}
+
+//另一种用途 判断object为null的操作
+object?.let{//表示object不为null的条件下，才会去执行let函数体
+   it.todo()
+}
+
+比如
+        textView?.text="abc"
+        textView?.setBackgroundColor(Color.parseColor("#ffffff"))
+
+        //等价于
+        textView?.let{
+            //it代替代替textView
+            it.text="abc"
+            it.setBackgroundColor(Color.parseColor("#ffffff"))
+        }
+
+
+2、With函数
+它是将某对象作为函数的参数，在函数块内可以通过 this 指代该对象。返回值为函数块的最后一行或指定return表达式。
+    fun test(ctx: Context) {
+        val textView = TextView(ctx)
+        val result= with(textView){
+            //this指代textView
+            text="abc"
+             1000 //最后一行返回值
+        }
+        println("$result")
+    }
+适用于调用同一个类的多个方法时，可以省去类名重复，直接调用类的方法即可，经常用于Android中RecyclerView中onBinderViewHolder中，数据model的属性映射到UI上
+@Override
+public void onBindViewHolder(ViewHolder holder, int position) {
+
+        ArticleSnippet item = getItem(position);
+		holder.tvNewsTitle.setText(StringUtils.trimToEmpty(item.titleEn));
+		holder.tvNewsSummary.setText(StringUtils.trimToEmpty(item.summary));
+		String gradeInfo = "难度：" + item.gradeInfo;
+		String wordCount = "单词数：" + item.length;
+		String reviewNum = "读后感：" + item.numReviews;
+		String extraInfo = gradeInfo + " | " + wordCount + " | " + reviewNum;
+		holder.tvExtraInfo.setText(extraInfo);
+		...
+}
+override fun onBindViewHolder(holder: ViewHolder, position: Int){
+   val item = getItem(position)
+   with(item){   //直接取item里面的属性
+       holder.tvNewsTitle.text = StringUtils.trimToEmpty(titleEn)
+	   holder.tvNewsSummary.text = StringUtils.trimToEmpty(summary)
+	   holder.tvExtraInf.text = "难度：$gradeInfo | 单词数：$length | 读后感: $numReviews"
+       ...
+
+   }
+
+}
+
+3、内联扩展函数之run
+object.run{
+   //todo
+}
+run函数实际上可以说是let和with两个函数的结合体，返回值为最后一行的值或者指定的return的表达式。
+它弥补了let函数在函数体内必须使用it参数替代对象，在run函数中可以像with函数一样可以省略，直接访问实例的公有属性和方法，
+另一方面它弥补了with函数传入对象判空问题，在run函数中可以像let函数一样做判空处理
+```
+override fun onBindViewHolder(holder: ViewHolder, position: Int){
+    val item = getItem(position)?: return
+    with(item){
+      holder.tvNewsTitle.text = StringUtils.trimToEmpty(titleEn)
+	   holder.tvNewsSummary.text = StringUtils.trimToEmpty(summary)
+	   holder.tvExtraInf = "难度：$gradeInfo | 单词数：$length | 读后感: $numReviews"
+       ...
+
+   }
+}
+```
+
+override fun onBindViewHolder(holder: ViewHolder, position: Int){
+  getItem(position)?.run{  //let判空
+      holder.tvNewsTitle.text = StringUtils.trimToEmpty(titleEn) //with函数的this指代item
+	   holder.tvNewsSummary.text = StringUtils.trimToEmpty(summary)
+	   holder.tvExtraInf = "难度：$gradeInfo | 单词数：$length | 读后感: $numReviews"
+       ...
+   }
+}
+
+```
+
+4、apply
+整体作用功能和run函数很像，唯一不同点就是它返回的值是对象本身，而run函数是一个闭包形式返回，返回的是最后一行的值。
+object.apply{
+   //todo
+}
+apply一般用于一个对象实例初始化的时候，需要对对象中的属性进行赋值。
+
+相当于构造对象后，调用它的相关方法
+    public void test(Context ctx) {
+        TextView textView = new TextView(ctx);
+        textView.setText("text");
+        textView.setTextColor(Color.parseColor("#ffffff"));
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+    ----------------------------------
+    fun test(ctx: Context?) {
+        val textView = TextView(ctx).apply{
+            text="text"
+            setTextColor(Color.parseColor("#ffffff"))
+            setOnClickListener{
+            }
+        }
+    }
