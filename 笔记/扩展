@@ -23,3 +23,13 @@ fun main(arg:Array<String>){
     var user = User("Runoob")
     user.print()
 }
+
+2、扩展属性
+重写set、get
+比如给View及其子类扩展一个selfVar属性，类型为Long
+
+ var <T : View> T.selfVar: Long
+    get() = if (getTag(1) != null) getTag(1) as Long else 0
+    set(value) {
+        setTag(1, value)
+    }

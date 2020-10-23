@@ -3,7 +3,7 @@ package com.example.kotlin.kotlin
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import com.example.kotlin.java.MyAnnotation
+import com.example.kotlin.kotlin.annotation.MyAnnotation
 
 /**
  * @author zhangquan

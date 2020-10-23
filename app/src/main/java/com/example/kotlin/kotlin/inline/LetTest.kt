@@ -18,7 +18,9 @@ class LetTest {
         var string = "abc".let {
             val len = it.length
             println("len=$len")
+             1+2 //返回3
         }
+        println("string=$string") //string=3
 
         /**
          *   if (str != null) {

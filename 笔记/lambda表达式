@@ -22,3 +22,57 @@ android{
     }
 
 }
+
+Lambda 表达式是 JDK8 的一个新特性，可以取代大部分的匿名内部类，写出更优雅的 Java 代码，尤其在集合的遍历和其他集合操作中，可以极大地优化代码结构。
+Lambda 表达式 允许把函数作为一个方法的参数（函数作为参数传递到方法中）。
+语法：
+(parameters) -> expression
+或
+(parameters) ->{ statements; }
+
+其中 () 用来描述参数列表，{} 用来描述方法体，-> 为 lambda运算符 ，读作(goes to)。
+
+一个参数无需定义圆括号，但多个参数需要定义圆括号。
+如果主体只包含了一个语句，就不需要使用大括号。
+
+1、对接口的要求
+Lambda 规定接口中只能有一个需要被实现的方法。但是可以有其他实现的方法。
+
+2、Lambda 表达式引用方法
+有时候我们不是必须要自己重写某个匿名内部类的方法，我们可以可以利用 lambda表达式的接口快速指向一个已经被实现的方法。
+语法
+​ 方法归属者::方法名 静态方法的归属者为类名，普通方法归属者为对象
+public class Exe1 {
+    public static void main(String[] args) {
+    /**
+     *   public interface ReturnOneParam {
+     *       int method(int a);
+     *   }
+     */
+        ReturnOneParam lambda1 = a -> doubleNum(a);
+        System.out.println(lambda1.method(3));
+
+        //lambda2 引用了已经实现的 doubleNum 方法
+        ReturnOneParam lambda2 = Exe1::doubleNum;
+        System.out.println(lambda2.method(3));
+
+        Exe1 exe = new Exe1();
+
+        //lambda4 引用了已经实现的 addTwo 方法
+        ReturnOneParam lambda4 = exe::addTwo;
+        System.out.println(lambda4.method(2));
+    }
+
+    /**
+     * 要求
+     * 1.参数数量和类型要与接口中定义的一致
+     * 2.返回值类型要与接口中定义的一致
+     */
+    public static int doubleNum(int a) {
+        return a * 2;
+    }
+
+    public int addTwo(int a) {
+        return a + 2;
+    }
+}

@@ -12,11 +12,13 @@ class ExtTest {
         var person = Person()
         var username = person.getUsername()
 
-        var textView=TextView(null)
-        textView.onClick(View.OnClickListener { })
+        var textView = TextView(null)
 
-        textView.onClick2{
+        //扩展方法
+        textView.onClick2 {
 
         }
+        //扩展属性
+        textView.selfVar = 10
     }
 }
