@@ -27,6 +27,8 @@ class InnerClsTest {
 
         //匿名内部类
         test2(object : MyInterface {
+            override var name: String=""
+
             override fun update(name: String, age: Int) {
 
             }

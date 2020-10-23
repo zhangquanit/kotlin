@@ -36,6 +36,8 @@ abstract class Father {
 
     fun update() {
         doUpdate(object : MyInterface {
+            override var name: String=""
+
             override fun update(name: String, age: Int) {
 
             }

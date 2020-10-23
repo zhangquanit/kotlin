@@ -2,6 +2,7 @@ package com.example.kotlin.kotlin.basic
 
 import android.content.Context
 import android.widget.TextView
+import com.example.kotlin.kotlin.Child
 
 /**
  * lazy：用到才在lazy后面的语句块中初始化

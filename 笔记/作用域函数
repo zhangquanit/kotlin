@@ -3,8 +3,8 @@ https://blog.csdn.net/u013064109/article/details/78786646
 
 apply/run.....let/also..with
 
-1、内联扩展函数之let
-let扩展函数的实际上是一个作用域函数，当你需要去定义一个变量在一个特定的作用域范围内，let函数的是一个不错的选择；let函数另一个作用就是可以避免写一些判断null的操作。
+1、let
+当你需要去定义一个变量在一个特定的作用域范围内，let函数的是一个不错的选择；let函数另一个作用就是可以避免写一些判断null的操作。
 object.let{
    it.todo()//在函数体内使用it替代object对象去访问其公有的属性和方法
    ...
@@ -64,7 +64,7 @@ override fun onBindViewHolder(holder: ViewHolder, position: Int){
 
 }
 
-3、内联扩展函数之run
+3、run
 object.run{
    //todo
 }
@@ -75,7 +75,7 @@ run函数实际上可以说是let和with两个函数的结合体，返回值为�
 override fun onBindViewHolder(holder: ViewHolder, position: Int){
     val item = getItem(position)?: return
     with(item){
-      holder.tvNewsTitle.text = StringUtils.trimToEmpty(titleEn)
+       holder.tvNewsTitle.text = StringUtils.trimToEmpty(titleEn)
 	   holder.tvNewsSummary.text = StringUtils.trimToEmpty(summary)
 	   holder.tvExtraInf = "难度：$gradeInfo | 单词数：$length | 读后感: $numReviews"
        ...

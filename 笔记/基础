@@ -1,0 +1,32 @@
+
+1、null
+var b = str ?: "default";
+fun nullTest(str: String?) {
+    /**
+        String b = str;
+        if (str == null) {
+           b = "default";
+        }
+     */
+    var b = str ?: "default";
+}
+
+2、三目运算
+var a=1
+var b=2
+if (a>b) a else b
+
+3、类型检测及自动类型转换
+is  or  !is
+fun getStringLength(obj: Any): Int? {
+  if (obj is String) {
+    // 做过类型判断以后，obj会被系统自动转换为String类型
+    return obj.length
+  }
+
+fun getStringLength(obj: Any): Int? {
+  if (obj !is String)
+    return null
+  // 在这个分支中, `obj` 的类型会被自动转换为 `String`
+  return obj.length
+}

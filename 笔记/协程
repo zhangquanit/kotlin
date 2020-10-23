@@ -1,0 +1,164 @@
+
+添加依赖
+implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+
+1、runBlocking
+runBlocking启动的协程任务会阻断当前线程，直到该协程执行结束。
+    fun runBolockingTest() {
+        Log.e(TAG, "主线程id：${mainLooper.thread.id}")
+        test()
+        Log.e(TAG, "协程执行结束")
+    }
+    private fun test() = runBlocking {
+        repeat(3) {
+            Log.e(TAG, "协程执行$it 线程id：${Thread.currentThread().id}")
+            delay(1000)
+        }
+    }
+
+2.launch:Job
+这是最常用的用于启动协程的方式，它最终返回一个Job类型的对象，这个Job类型的对象实际上是一个接口，它包涵了许多我们常用的方法。
+launch不会阻断主线程。
+   val job = GlobalScope.launch {
+        delay(6000)
+    }
+
+//Job中的方法
+job.isActive
+job.isCancelled
+job.isCompleted
+job.cancel()
+jon.join()
+
+3、suspend
+被suspend修饰的函数称为挂起函数,与之对应的是关键字resume（恢复），注意：挂起函数只能在协程中和其他挂起函数中调用，不能在其他地方使用。
+suspend函数会将整个协程挂起，而不仅仅是这个suspend函数，也就是说一个协程中有多个挂起函数时，它们是顺序执行的。
+    GlobalScope.launch {
+        val token = getToken()
+        val userInfo = getUserInfo(token)
+        setUserInfo(userInfo)
+    }
+
+    private fun setUserInfo(userInfo: String) {
+        Log.e(TAG, userInfo)
+    }
+
+    private suspend fun getToken(): String {
+        delay(2000)   //有delay  方法必须加suspend
+        return "token"
+    }
+
+    private suspend fun getUserInfo(token: String): String {
+        delay(2000)  //有delay  方法必须加suspend
+        return "$token - userInfo"
+    }
+4、async
+async跟launch的用法基本一样，区别在于：async的返回值是Deferred，将最后一个封装成了该对象。async可以支持并发，此时一般都跟await一起使用
+    private fun asyncTest(){
+        GlobalScope.launch {
+            val result1 = GlobalScope.async {
+                Log.e(TAG,"getResult1 start")
+                getResult1()
+                Log.e(TAG,"getResult1 end")
+            }
+            val result2 = GlobalScope.async {
+                Log.e(TAG,"getResult2 start")
+                getResult2()
+                Log.e(TAG,"getResult2 end")
+            }
+            //等待result1、result2执行完后才继续向下执行
+            val result = result1.await() + result2.await()
+            Log.e(TAG,"result = $result")
+        }
+        repeat(4){
+            Log.e(TAG,"主线程执行$it")
+        }
+    }
+    private suspend fun getResult1(): Int {
+        delay(3000)
+        return 3
+    }
+
+    private suspend fun getResult2(): Int {
+        delay(4000)
+        return 4
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
