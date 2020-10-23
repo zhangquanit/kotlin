@@ -1,6 +1,7 @@
 package com.example.kotlin.kotlin.ext
 
 import android.view.View
+import com.example.kotlin.R
 
 /**
  *
@@ -23,7 +24,7 @@ fun View.onClick2(function: () -> Unit) {
 
 //扩展属性
 var <T : View> T.selfVar: Long
-    get() = if (getTag(1) != null) getTag(1) as Long else 0
+    get() = if (getTag(R.id.myId) != null) getTag(1) as Long else 0
     set(value) {
-        setTag(1, value)
+        setTag(R.id.myId, value)
     }

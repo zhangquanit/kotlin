@@ -30,3 +30,87 @@ fun getStringLength(obj: Any): Int? {
   // 在这个分支中, `obj` 的类型会被自动转换为 `String`
   return obj.length
 }
+
+4、属性观察器
+observable 可以观察参数的变化
+vetoable 相当于参数拦截器，返回值true 表示允许参数修改，false 反之不允许，数据不会变更。
+
+open class News(var room: String) {
+
+    var title: String by Delegates.observable("title_default") { property, oldValue, newValue ->
+        Log.d("AAA", "属性变化：属性名：$property  旧值：$oldValue  新值：$newValue")
+    }
+
+    var price: Int by Delegates.vetoable(100, { property, oldValue, newValue ->
+        if (newValue > 100) {
+            Log.d("AAA", "属性变化：属性名：$property  旧值：$newValue > 100 不符合需求不能更改数据")
+            return@vetoable false
+        }
+        return@vetoable true
+    })
+}
+
+5、this表达式
+class InnerClsTest {
+    var username: String? = null
+
+    //内部类
+    inner class Inner {
+        fun method() {
+            //this@InnerClsTest 引用外部类对象
+            var username = this@InnerClsTest.username
+            //this@Inner 引用当前对象
+            this@Inner.method2(username)
+        }
+
+        fun method2(str: String?) {
+
+        }
+    }
+}
+
+6、return/break/continue
+kotlin 的 return/break/continue 和 java 含义一样，但是比 java 扩展的是可以用 @ 标价返回的位置
+    // 1. 和Java不同的是，这些表达式都可作为更大表达式的一部分
+    val s = person.name ?: return
+
+    //2. 和Java不同的是，在 Kotlin 中任何表达式都可以用 标签@ 来标记
+    loop@ for (i in 1..100) {
+        for (j in 1..100) {
+            if (……) break@loop // 终止loop标记的循环
+            if (……) continue@loop // 跳出loop标记的循环，继续下一次loop标记的循环
+        }
+    }
+
+    // 3. 从外层函数返回
+    fun foo() {
+        ints.forEach {
+            if (it == 0) return // 默认从foo(){}返回
+            print(it)
+        }
+    }
+
+    //4. 用显式标签从lambda表达式中返回
+    fun foo() {
+        ints.forEach lit@ {
+            if (it == 0) return@lit // 标记从forEach{}返回
+            print(it)
+        }
+        .....
+    }
+
+    // 5. 用隐式标签(与接收lambda的函数同名)从lambda表达式中返回
+    fun foo() {
+        ints.forEach {
+            if (it == 0) return@forEach // 隐式标签forEach，从forEach{}返回
+            print(it)
+        }
+    }
+
+    // 6. 用匿名函数替代lambda表达式:
+    fun foo() {
+        ints.forEach(fun(value: Int) {
+            if (value == 0) return // 从该匿名函数fun返回
+            print(value)
+        })
+    }

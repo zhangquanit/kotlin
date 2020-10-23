@@ -1,27 +1,4 @@
 
-1、
-buildscript {
-    repositories {
-        maven {  //下载gradle-retrolambda
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "gradle.plugin.me.tatarka:gradle-retrolambda:3.7.1"
-    }
-}
-
-app模块的build.gradle中添加plugin
-apply plugin: "me.tatarka.retrolambda"
-
-android{
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-}
 
 Lambda 表达式是 JDK8 的一个新特性，可以取代大部分的匿名内部类，写出更优雅的 Java 代码，尤其在集合的遍历和其他集合操作中，可以极大地优化代码结构。
 Lambda 表达式 允许把函数作为一个方法的参数（函数作为参数传递到方法中）。

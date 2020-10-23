@@ -1,5 +1,7 @@
 package com.example.kotlin.kotlin.collection
 
+import java.util.*
+
 /**
  *
  * @author zhangquan
@@ -43,10 +45,46 @@ class CollectionTest {
         mutableListOf.add("a")
         mutableListOf.add("b")
         mutableListOf.removeAt(0)
-        for (item in mutableListOf){
+        for (item in mutableListOf) {
 
         }
 
+    }
 
+    fun mapTest() {
+        //不可修改的map
+        val mapOf = mapOf<String, String>()
+        val mapOf1 = mapOf("key" to "value", "key2" to "value2")
+        for ((k, v) in mapOf1) {
+            println("$k=$v")
+        }
+
+        //可修改的map
+        val mutableMapOf = mutableMapOf<String, String>()
+        val mutableMapOf1 = mutableMapOf("key" to "value", "key2" to "value2")
+        mutableMapOf["key"] = "value";
+        mutableMapOf1["key"] = "value";
+
+        //LinkedHashMap
+        val linkedMapOf = linkedMapOf<String, String>()
+        linkedMapOf["key"] = "value"
+
+
+    }
+
+    fun setTest() {
+        //不可变
+        val of = setOf<String>()
+        val of1 = setOf("a", "b")
+        of1.forEach {
+            println("$it")
+        }
+
+        //可修改
+        val mutableSetOf = mutableSetOf("a", "b")
+        mutableSetOf.add("c")
+
+        val linkedSetOf = linkedSetOf<String>("a", "b")
+        linkedSetOf.add("c")
     }
 }

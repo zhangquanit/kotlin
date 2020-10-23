@@ -1,0 +1,144 @@
+
+1、语法
+    1. 无参数的情况 ：
+    val/var 变量名 = { 操作的代码 }
+
+    2. 有参数的情况
+    val/var 变量名 : (参数的类型，参数的类型，...) -> 返回值类型 = {参数1，参数2，... -> 操作参数的代码 }
+
+    可等价于
+    // 此种写法：即表达式的返回值类型会根据操作的代码自推导出来。
+    val/var 变量名 = { 参数1：类型，参数2：类型, ... -> 操作参数的代码 }
+
+    3. lambda表达式作为函数中的参数的时候，这里举一个例子：
+    fun test(a : Int, 参数名 : (参数1 ： 类型，参数2 : 类型, ... ) -> 表达式返回类型){
+        ...
+    }
+
+2、最标准形式
+比如 {x:Int,y:Int -> x+y }
+最标准表达式需要满足3个条件
+1、必须h含有{}
+2、有实参
+3、有函数体
+
+class People {
+    var age = 1
+    fun maxBy(param: (p: People) -> Int) { //param参数表示:参数为People对象，返回一个Int值的lambda表达式
+        println("p=$param")  //Function1<com.example.kotlin.lambdas.People, java.lang.Integer>
+
+        var people = People()
+        people.age=100
+        val result = param.invoke(people)
+        println("result=$result") //100
+    }
+}
+
+        var people = People()
+        people.maxBy({ p: People -> p.age })
+        //如果一个函数的最后一个参数是一个lambda表达式，可以把lambda表达式提到小括号右边
+        people.maxBy() { p: People -> p.age }
+        //如果lambda是函数的唯一实参时，小括号可以直接省略
+        people.maxBy { p: People -> p.age }
+        //在kotlin中可以推导出参数类型
+        people.maxBy { p -> p.age }
+        //在Kotlin中可以使用it默认参数名称替代命名参数名称p
+        people.maxBy { it.age }
+
+3、lambda表达式的返回值
+lambda表达式返回值总是返回函数体内部最后一行表达式的值
+        val add = { a: Int ->
+            println("a=$a")
+            a == 1   //返回最后一行表达式的值
+        }
+        val pri = { a: Int ->
+            var b = a + 1
+            println("最后一行表达式无返回值")
+        }
+4、lambda表达式类型
+() -> Unit//表示无参数无返回值的Lambda表达式类型
+(T) -> Unit//表示接收一个T类型参数，无返回值的Lambda表达式类型
+(T) -> R//表示接收一个T类型参数，返回一个R类型值的Lambda表达式类型
+(T, P) -> R//表示接收一个T类型和P类型的参数，返回一个R类型值的Lambda表达式类型
+(T, (P,Q) -> S) -> R//表示接收一个T类型参数和一个接收P、Q类型两个参数并返回一个S类型的值的Lambda表达式类型参数，返回一个R类型值的Lambda表达式类型
+
+
+5、函数作为参数，T.()->Unit 和 ()->Unit 的区别
+T.()->Unit里的this代表的是自身实例T，而()->Unit里，this代表的是外部类的实例
+class People {
+    fun method4(block: () -> Unit) {
+        block()
+    }
+
+    fun method5(block: People.() -> Unit) {
+        block(People())
+    }
+}
+
+class Lambda_Kotlin {
+    fun testMain() {
+        var people = People()
+        people.method4 {
+            //this代表的是外部类的实例 即Lambda_Kotlin实例
+            println("()的this=$this")
+        }
+        people.method5 {
+            //this代表当前实例 指向T.()的T 这里是People
+            println("People.()的this=$this")
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

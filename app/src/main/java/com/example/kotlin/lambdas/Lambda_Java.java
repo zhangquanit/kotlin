@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * @author zhangquan
  */
-public class LambdaTest {
+public class Lambda_Java {
 
     public void test() {
         View view = new View(null);
