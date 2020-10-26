@@ -2,18 +2,25 @@
 1、语法
     1. 无参数的情况 ：
     val/var 变量名 = { 操作的代码 }
+    比如：val test={println("xxx")}  调用test()
 
     2. 有参数的情况
     val/var 变量名 : (参数的类型，参数的类型，...) -> 返回值类型 = {参数1，参数2，... -> 操作参数的代码 }
+    比如：val test:(Int,Int)->Int={a,b->a+b}   调用 test(1,2) 或者test.invoke(1,2)
 
     可等价于
     // 此种写法：即表达式的返回值类型会根据操作的代码自推导出来。
     val/var 变量名 = { 参数1：类型，参数2：类型, ... -> 操作参数的代码 }
+     比如：val test={a:Int,b:Int->a+b}  调用 test(1,2) 或者test.invoke(1,2)
 
     3. lambda表达式作为函数中的参数的时候，这里举一个例子：
-    fun test(a : Int, 参数名 : (参数1 ： 类型，参数2 : 类型, ... ) -> 表达式返回类型){
+    fun test(a:Int, 参数名:(类型1，类型2, ... ) -> 表达式返回类型){
         ...
     }
+    比如 fun test(a:Int,block:(Int,Int)->Int){ //作为方法参数
+         return a+block(1,2)
+    }
+    调用：test(1){a:Int,b:Int->a+b}
 
 2、最标准形式
 比如 {x:Int,y:Int -> x+y }
@@ -24,7 +31,7 @@
 
 class People {
     var age = 1
-    fun maxBy(param: (p: People) -> Int) { //param参数表示:参数为People对象，返回一个Int值的lambda表达式
+    fun maxBy(param: (People) -> Int) { //param参数表示:参数为People对象，返回一个Int值的lambda表达式
         println("p=$param")  //Function1<com.example.kotlin.lambdas.People, java.lang.Integer>
 
         var people = People()
@@ -40,9 +47,9 @@ class People {
         people.maxBy() { p: People -> p.age }
         //如果lambda是函数的唯一实参时，小括号可以直接省略
         people.maxBy { p: People -> p.age }
-        //在kotlin中可以推导出参数类型
+        //在kotlin中可以推导出参数类型,这里都是People类型，可以省略
         people.maxBy { p -> p.age }
-        //在Kotlin中可以使用it默认参数名称替代命名参数名称p
+        //在Kotlin中只有一个参数时，那么它的声明可以省略（连同 -> ），其名称是it。
         people.maxBy { it.age }
 
 3、lambda表达式的返回值
@@ -89,6 +96,9 @@ class Lambda_Kotlin {
     }
 
 }
+
+6、当一个Lambda表达式只有一个参数时
+即如果函数字面值只有一个参数， 那么它的声明可以省略（连同 -> ），其名称是it。
 
 
 

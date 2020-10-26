@@ -17,6 +17,7 @@ class CoroutinesTest {
         Log.e(TAG, "协程执行结束")
     }
 
+    // 调用了 runBlocking 的主线程会一直 阻塞 直到 runBlocking 内部的协程执行完毕。
     fun test() = runBlocking {
         repeat(3) {
             Log.e(TAG, "协程执行$it 线程id：${Thread.currentThread().id}")
@@ -38,7 +39,7 @@ class CoroutinesTest {
         job.isCancelled
         job.isCompleted
         job.cancel()
-        jon.join()
+        jon.join() 等待job执行结束
          */
     }
 
@@ -72,12 +73,12 @@ class CoroutinesTest {
     private fun asyncTest() {
         GlobalScope.launch {
             Log.e(TAG, "launch ,thread.id=${Thread.currentThread().id}")
-            val result1 = GlobalScope.async {
+            val result1 = async {
                 Log.e(TAG, "getResult1 start, thread.id=${Thread.currentThread().id}")
                 getResult1()
                 Log.e(TAG, "getResult1 end")
             }
-            val result2 = GlobalScope.async {
+            val result2 = async {
                 Log.e(TAG, "getResult2 start, thread.id=${Thread.currentThread().id}")
                 getResult2()
                 Log.e(TAG, "getResult2 end")

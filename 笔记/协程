@@ -10,10 +10,8 @@ runBlocking启动的协程任务会阻断当前线程，直到该协程执行结
         Log.e(TAG, "协程执行结束")
     }
     private fun test() = runBlocking {
-        repeat(3) {
-            Log.e(TAG, "协程执行$it 线程id：${Thread.currentThread().id}")
-            delay(1000)
-        }
+         Log.e(TAG, "协程执行 线程id：${Thread.currentThread().id}")
+         delay(1000)
     }
 
 2.launch:Job
@@ -28,7 +26,7 @@ job.isActive
 job.isCancelled
 job.isCompleted
 job.cancel()
-jon.join()
+jon.join()  等待协程的结束
 
 3、suspend
 被suspend修饰的函数称为挂起函数,与之对应的是关键字resume（恢复），注意：挂起函数只能在协程中和其他挂起函数中调用，不能在其他地方使用。
@@ -56,12 +54,12 @@ suspend函数会将整个协程挂起，而不仅仅是这个suspend函数，也
 async跟launch的用法基本一样，区别在于：async的返回值是Deferred，将最后一个封装成了该对象。async可以支持并发，此时一般都跟await一起使用
     private fun asyncTest(){
         GlobalScope.launch {
-            val result1 = GlobalScope.async {
+            val result1 = async {
                 Log.e(TAG,"getResult1 start")
                 getResult1()
                 Log.e(TAG,"getResult1 end")
             }
-            val result2 = GlobalScope.async {
+            val result2 = async {
                 Log.e(TAG,"getResult2 start")
                 getResult2()
                 Log.e(TAG,"getResult2 end")

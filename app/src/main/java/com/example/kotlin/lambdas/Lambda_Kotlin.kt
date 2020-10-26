@@ -2,6 +2,8 @@ package com.example.kotlin.lambdas
 
 import android.app.Person
 import android.view.View
+import java.util.*
+import kotlin.concurrent.thread
 
 /**
  *
@@ -72,11 +74,23 @@ class Lambda_Kotlin {
         people.method6 { a: Int ->
             "str_$a"
         }
+
+
+        //lambda只有一个参数
+        test2({a:Int->a})
+        test2 { a:Int->a} //最后一个参数是一个lambda表达式，可以把lambda表达式提到小括号右边,省略小括号
+        test2{a->a} //只有一个Int类型，可以省略
+        test2{it} //只有一个参数，可以省略（连同 -> ），其名称是it。
     }
 
     private fun test1(inter1: KInter1) {
         inter1.method()
     }
+
+    private fun test2(block:(Int)->Int){
+        block(1)
+    }
+
 
 }
 
@@ -120,11 +134,13 @@ class People {
         block()
     }
 
-    fun method6(block: People.(a: Int) -> String) {
+    fun method6(block: People.(Int) -> String) {
         //People类实例是block函数的调用者. 也可以携带参数
         var result =block(1)
         println("$result")
     }
+
+
 
 }
 

@@ -12,6 +12,10 @@ class BasicTest {
         var b=2
         if (a>b) a else b
 
+        //表达式作为函数体
+        fun sum(a: Int, b: Int) = a + b
+        sum(1,2)
+
     }
 
     fun nullTest(str: String?) {

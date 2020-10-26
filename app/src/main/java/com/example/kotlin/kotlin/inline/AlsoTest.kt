@@ -4,7 +4,7 @@ import android.widget.TextView
 
 /**
  * 适用于let函数的任何场景，一般可用于多个扩展函数链式调用
- * it指代当前对象,返回this
+ * it指代当前对象
  * @author zhangquan
  */
 class AlsoTest {

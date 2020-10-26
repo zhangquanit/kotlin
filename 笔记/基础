@@ -114,3 +114,19 @@ kotlin 的 return/break/continue 和 java 含义一样，但是比 java 扩展�
             print(value)
         })
     }
+
+ 7、函数
+表达式作为函数体
+ fun sum(a: Int, b: Int) = a + b
+ 调用 sum(1,2)
+
+匿名函数
+所谓匿名函数就是无需定义函数名称，其他的和普通函数定义语法一样，简而言之，匿名函数就是⼀个普通函数除了其名称省略了，其函数体也可以是表达式或代码块
+fun(x: Int, y: Int): Int = x + y
+fun(x: Int, y: Int): Int {
+    return x + y
+}
+匿名函数参数总是在括号内传递且允许将函数 留在圆括号外的简写语法仅适用于 Lambda 表达式。
+
+
+
