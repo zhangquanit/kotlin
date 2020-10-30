@@ -1,5 +1,7 @@
 package com.example.kotlin.kotlin.basic
 
+import com.example.kotlin.kotlin.ext.Person
+
 /**
  *
  * @author zhangquan
@@ -15,7 +17,6 @@ class BasicTest {
         //表达式作为函数体
         fun sum(a: Int, b: Int) = a + b
         sum(1,2)
-
     }
 
     fun nullTest(str: String?) {
