@@ -37,7 +37,7 @@ public interface ResultCallBack<T>{
 
     }
 
-   fun <T:View> method(param:T){
+   fun <T:View> method(param:T){ //T为View类型
 
    }
 
@@ -54,7 +54,7 @@ public interface ResultCallBack<T>{
     }
 
 6、泛型擦除
-    // kotlin [ Any 对应 Java Object 任意类型]
+    // kotlin [ Any 对应 Java Object 代表任意类型]
     fun buildRequest(param:Any){
         // 第一种具体类型
         if (param is Int){

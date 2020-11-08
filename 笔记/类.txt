@@ -95,7 +95,7 @@ object SingleCls {
 
 2、model类
 定义 data class xx()
-必须提供构造函数 自动生成setXX getXX
+必须提供主构造函数 自动生成setXX getXX
 
 data class DataCls(var str: String?, var time: Long?) {
     var other:String?=null
