@@ -28,7 +28,7 @@ object?.let{//表示object不为null的条件下，才会去执行let函数体
 
 
 2、With函数
-它是将某对象作为函数的参数，在函数块内可以通过 this 指代该对象。返回值为函数块的最后一行表达式的值或指定return表达式。
+它是将某对象作为函数的参数，在函数块内可以通过 this 指代该对象。返回值为:函数块的最后一行表达式的值或指定return表达式。
     fun test(ctx: Context) {
         val textView = TextView(ctx)
         val result= with(textView){

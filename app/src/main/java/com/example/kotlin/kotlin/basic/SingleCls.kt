@@ -9,10 +9,8 @@ object SingleCls {
     const val TAG = "StaticCls" //final静态变量
 
     // public static boolean staticField;
-    @JvmField
     var staticField = true
 
-    @JvmStatic
     fun staticMethod1(str: String?) {
 
     }

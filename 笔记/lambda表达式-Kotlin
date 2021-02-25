@@ -99,6 +99,15 @@ class Lambda_Kotlin {
 
 6、当一个Lambda表达式只有一个参数时
 即如果函数字面值只有一个参数， 那么它的声明可以省略（连同 -> ），其名称是it。
+fun main() {
+    addCallback({ it: Int -> it > 0 })
+    addCallback(){ it: Int -> it > 0 } //只有一个参数  可以写到括号()外边
+    addCallback{ it: Int -> it > 0 } //只有一个参数，可以省略()
+    addCallback { it > 0 } //只有一个参数，可以使用it代替
+}
+fun addCallback(callback: (Int) -> Boolean) {
+    val invoke = callback.invoke(1)
+}
 
 
 

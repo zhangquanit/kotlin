@@ -42,7 +42,7 @@ public interface ResultCallBack<T>{
    }
 
 5、泛型下限
-下界通配符通常我们使用<? super T> 来表示。即可以表示所有T的父类（包括T），用来确定类型的上限。
+下界通配符通常我们使用<? super T> 来表示。即可以表示所有T的父类（包括T），用来确定类型的下限。
 // java
   public void systemIn(List<? super T> list){
 

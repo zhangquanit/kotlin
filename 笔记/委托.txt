@@ -19,7 +19,7 @@ class RealGamePlayer(private val name:String):IGamePlayer{
 }
 
 //代理类 代理player执行操作
-class DelegateGamePlayer(private val player:IGamePlayer):IGamePlayer by player  //代理给传入的play对象
+class DelegateGamePlayer(private val player:IGamePlayer):IGamePlayer by player  //代理给传入的player对象
 
 -------测试
 // Client 场景测试

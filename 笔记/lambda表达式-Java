@@ -26,6 +26,7 @@ public class Exe1 {
      *       int method(int a);
      *   }
      */
+        //匿名内部类
         ReturnOneParam lambda1 = a -> doubleNum(a);
         System.out.println(lambda1.method(3));
 

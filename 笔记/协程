@@ -26,7 +26,8 @@ job.isActive
 job.isCancelled
 job.isCompleted
 job.cancel()
-jon.join()  等待协程的结束
+job.start()
+job.join()  等待协程结束后才能继续向下执行
 
 3、suspend
 被suspend修饰的函数称为挂起函数,与之对应的是关键字resume（恢复），注意：挂起函数只能在协程中和其他挂起函数中调用，不能在其他地方使用。
